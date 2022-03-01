@@ -223,9 +223,6 @@ get_wm() {
            tmp_pid="$(fuser   "${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY:-wayland-0}" 2>&1)"; then
             wm="$(ps -p "${tmp_pid}" -ho comm=)"
         else
-            # lsof may not exist, or may need root on some systems. Similarly fuser.
-            # On those systems we search for a list of known window managers, this can mistakenly
-            # match processes for another user or session and will miss unlisted window managers.
             wm=$(ps "${ps_flags[@]}" | grep -m 1 -o -F \
                                -e arcan \
                                -e asc \
